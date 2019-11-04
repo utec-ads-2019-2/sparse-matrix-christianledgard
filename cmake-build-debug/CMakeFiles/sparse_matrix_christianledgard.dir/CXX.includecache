@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/Node.h
+
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/SparceMatrix.h
+stdexcept
+-
+vector
+-
+Node.h
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/Node.h
+
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/main.cpp
+iostream
+-
+SparceMatrix.h
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/SparceMatrix.h
+

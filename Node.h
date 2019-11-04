@@ -2,17 +2,21 @@
 #define SPARSE_MATRIX_NODE_H
 
 template <typename T>
-class Matrix;
+class SparseMatrix;
 
 template <typename T>
 class Node {
 protected:
+    T data;
+    unsigned int posROW, posCOL;
     Node<T> *next, *down;
 
 public:
-    explicit Node();
+    Node(){
+        next = down = nullptr;
+    };
 
-    friend class Matrix<T>;
+    friend class SparseMatrix<T>;
 };
 
 #endif //SPARSE_MATRIX_NODE_H

@@ -8,7 +8,7 @@
 #include <algorithm>   
 
 #include "../mocker/mocker.h"
-#include "../matrix.h"
+#include "../SparceMatrix.h"
 
 using namespace std;
 
@@ -36,7 +36,7 @@ class Tester {
         static T** buildMatrix(unsigned int, unsigned int);
 
         template <typename T>
-        static Matrix<T> setMatrix(T **&, unsigned int, unsigned int);
+        static SparseMatrix<T> setMatrix(T **&, unsigned int, unsigned int);
 
     public:
         static void execute();
