@@ -3,7 +3,9 @@
 
 #include <stdexcept>
 #include <vector>
+#include <map>
 #include "Node.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -20,15 +22,16 @@ private:
 
 
 public:
-    SparseMatrix(unsigned rows, unsigned columns);
+    SparseMatrix(unsigned int rows, unsigned int columns);
+    void set(unsigned int posROW_to_set, unsigned int posCOL_to_set, T data);
+    T operator()(unsigned int rowPos, unsigned int colPos) const;
+    SparseMatrix<T> operator+(SparseMatrix<T> other) const;
+    SparseMatrix<T> operator-(SparseMatrix<T> other) const;
+    SparseMatrix<T> operator*(T scalar) const;
+    SparseMatrix<T> operator*(SparseMatrix<T> other) const;
 
-    void set(unsigned int rowPos, unsigned int colPos, T data);
-    T get(unsigned int rowPos, unsigned int colPos);
-//    T operator()(unsigned int, unsigned int) const;
-//    SparseMatrix<T> operator*(T scalar) const;
-//    SparseMatrix<T> operator*(SparseMatrix<T> other) const;
-//    SparseMatrix<T> operator+(SparseMatrix<T> other) const;
-//    SparseMatrix<T> operator-(SparseMatrix<T> other) const;
+    void print() const;
+
 //    SparseMatrix<T> transpose() const;
 //    void print() const;
 //
@@ -38,125 +41,194 @@ public:
 
 template<typename T>
 SparseMatrix<T>::SparseMatrix(unsigned int rows, unsigned int columns) {
-    for (unsigned int i = 0; i < rows + 1; ++i)
+    this->rows = rows;
+    this->columns = columns;
+
+    for (unsigned int i = 0; i < rows; ++i)
         R.push_back(nullptr);
-    for (unsigned int j = 0; j < columns + 1; ++j)
+    for (unsigned int j = 0; j < columns; ++j)
         C.push_back(nullptr);
 }
 
 template<typename T>
-void SparseMatrix<T>::set(unsigned int rowPos, unsigned int colPos, T data) {
+void SparseMatrix<T>::set(unsigned int posROW_to_set, unsigned int posCOL_to_set, T data) {
     auto* current = new Node<T>();
     current->data = data;
-    current->posROW = rowPos;
-    current->posCOL = colPos;
+    current->posROW = posROW_to_set;
+    current->posCOL = posCOL_to_set;
 
-    if(R[rowPos] == nullptr and C[colPos] == nullptr){ //There is no Node in the ROW and COLUMN
-        R[rowPos] = current;
-        C[colPos] = current;
+    if(R[posROW_to_set - 1] == nullptr and C[posCOL_to_set - 1] == nullptr){ //There is no Node in the ROW and COLUMN
+        R[posROW_to_set - 1] = current;
+        C[posCOL_to_set - 1] = current;
         current->next = nullptr;
         current->down = nullptr;
-    } else if (R[rowPos] != nullptr and C[colPos] == nullptr){ //Row -> HAVE A NODE | Column -> NO NODE
-        C[colPos] = current;
 
-        // Updating node to the left
-        unsigned int currentPosL = colPos - 1;
-        auto itr = C.begin() + currentPosL;
-        while(*itr == nullptr and currentPosL > 0){
-            --itr;
-            --currentPosL;
-        }
-        if(currentPosL > 0){
-            (*itr)->next = current;
-            // Updating node to the right
-            unsigned int currentPosR = colPos + 1;
-            auto itr2 = C.begin() + currentPosR;
-            while(*itr2 == nullptr and currentPosR <= C.size()){
-                ++itr2;
-                ++currentPosR;
+    } else {
+
+        //R[posROW_to_set - 1] = current;
+        //SETTING THE COLUMNS
+        if(C[posCOL_to_set - 1] == nullptr){
+            C[posCOL_to_set - 1] = current;
+            current->down = nullptr;
+        } else {
+            auto *temp = C[posCOL_to_set - 1];
+            if(posROW_to_set < temp->posROW){
+                auto aux = temp;
+                C[posCOL_to_set - 1] = current;
+                current->down = aux;
+            } else {
+                while(temp->down != nullptr and posROW_to_set > temp->down->posROW)
+                    temp = temp->down;
+
+                if(temp->down != nullptr){
+                    auto aux = temp->down;
+                    temp->down = current;
+                    current->down = aux;
+                } else {
+                    temp->down = current;
+                    current->down = nullptr;
+                }
             }
-            if(currentPosR <= C.size())
-                current->next = (*itr2);
-            else
-                current->next = nullptr;
         }
 
-        else{
-            auto aux = R[rowPos];
-            R[rowPos] = current;
-            current->next = aux;
-            aux = nullptr;
-        }
+        //SETTING THE ROWS
+        if(R[posROW_to_set - 1] == nullptr){
+            R[posROW_to_set - 1] = current;
+            current->next = nullptr;
+        } else {
+            auto *temp = R[posROW_to_set - 1];
+            if(posCOL_to_set < temp->posCOL){
+                auto aux = temp;
+                R[posROW_to_set - 1] = current;
+                current->next = aux;
+            } else {
+                while(temp->next != nullptr and posCOL_to_set > temp->next->posCOL)
+                    temp = temp->next;
 
-    }else if(R[rowPos] == nullptr and C[colPos] != nullptr){ //Row -> NO NODE | Column -> HAVE A NODE
-        R[rowPos] = current;
-
-        // Updating the UP node
-        unsigned int currentPosUp = rowPos - 1;
-        auto itr = R.begin() + currentPosUp;
-        while(*itr == nullptr and currentPosUp > 0){
-            --itr;
-            --currentPosUp;
-        }
-        if(currentPosUp > 0){
-            (*itr)->down = current;
-            // Updating the DOWN node
-            unsigned int currentPosDown = rowPos + 1;
-            auto itr2 = C.begin() + currentPosDown;
-            while(*itr2 == nullptr and currentPosDown <= R.size()){
-                ++itr2;
-                ++currentPosDown;
+                if(temp->next != nullptr){
+                    auto aux = temp->next;
+                    temp->next = current;
+                    current->next = aux;
+                } else {
+                    temp->next = current;
+                    current->next = nullptr;
+                }
             }
-            if(currentPosDown <= R.size())
-                current->down = (*itr2);
-            else
-                current->down = nullptr;
         }
-
-        else{
-            auto aux = C[colPos];
-            C[colPos] = current;
-            current->down = aux;
-            aux = nullptr;
-        }
-    }else if(R[rowPos] != nullptr and C[colPos] != nullptr) { //Row -> HAVE A NODE | Column -> HAVE A NODE
-//        auto* ptrCol = C[colPos];
-//        auto* ptrRow = R[rowPos];
-//
-//        Node<T>* prev = nullptr;
-//        while(ptrCol->posROW < rowPos and ptrCol->down != nullptr){
-//            prev = ptrCol;
-//            ptrCol = ptrCol->next;
-//        }
-//        if(prev != nullptr){
-//            prev->down = current;
-//            current->down = ptrCol;
-//        } else if(ptrCol->down == nullptr) {
-//            ptrCol->down = current;
-//        } else {
-//
-//        }
-
-
-
     }
-
-
 }
 
 template<typename T>
-T SparseMatrix<T>::get(unsigned int rowPos, unsigned int colPos) {
-    auto temp = R[rowPos];
+T SparseMatrix<T>::operator()(unsigned int rowPos, unsigned int colPos) const {
+    auto temp = R[rowPos-1];
     if(temp == nullptr)
-        throw std::invalid_argument("Element does not exist. ROW error.");
+        return 0;
 
     while(temp->posCOL != colPos){
         temp = temp->next;
         if(temp == nullptr)
-            throw std::invalid_argument("Element does not exist. COLUMN error.");
+            return 0;
+    }
+    return temp->data;
+}
+
+template<typename T>
+void SparseMatrix<T>::print() const {
+    for (int i = 1; i < rows + 1; ++i) {
+        for (int j = 1; j < columns + 1; ++j) {
+            cout << setw(3) << this->operator()(i,j) << " ";
+        }
+        cout << endl;
     }
 
-    return temp->data;
+}
+
+template<typename T>
+SparseMatrix<T> SparseMatrix<T>::operator+(SparseMatrix<T> other) const {
+    SparseMatrix<T> result(rows,columns);
+    for (int i = 0; i < rows; ++i) {
+        map<unsigned int, T> MROW;
+        if(R[i] != nullptr){
+            auto *temp = R[i];
+            while(temp != nullptr){
+                MROW[temp->posCOL-1] += temp->data;
+                temp = temp->next;
+            }
+        }
+        if(other.R[i] != nullptr){
+            auto *temp = other.R[i];
+            while(temp != nullptr){
+                MROW[temp->posCOL-1] += temp->data;
+                temp = temp->next;
+            }
+        }
+        if(!MROW.empty())
+            for(auto const & iter: MROW){
+                result.set(i+1,iter.first+1,iter.second);
+            }
+    }
+    return result;
+}
+
+template<typename T>
+SparseMatrix<T> SparseMatrix<T>::operator-(SparseMatrix<T> other) const {
+    SparseMatrix<T> result(rows,columns);
+
+    for (int i = 0; i < rows; ++i) {
+        map<unsigned int, T> MROW;
+        if(R[i] != nullptr){
+            auto *temp = R[i];
+            while(temp != nullptr){
+                MROW[temp->posCOL-1] += temp->data;
+                temp = temp->next;
+            }
+        }
+        if(other.R[i] != nullptr){
+            auto *temp = other.R[i];
+            while(temp != nullptr){
+                MROW[temp->posCOL-1] -= temp->data;
+                temp = temp->next;
+            }
+        }
+        if(!MROW.empty())
+            for(auto const & iter: MROW){
+                result.set(i+1,iter.first+1,iter.second);
+            }
+    }
+    return result;
+
+}
+
+template<typename T>
+SparseMatrix<T> SparseMatrix<T>::operator*(T scalar) const {
+    SparseMatrix<T> result(rows,columns);
+    result = *this;
+
+    for (int i = 0; i < rows; ++i) {
+        if(result.R[i] != nullptr){
+            auto *temp = result.R[i];
+            while(temp != nullptr){
+                temp->data = (temp->data) * scalar;
+                temp = temp->next;
+            }
+        }
+    }
+
+    return result;
+}
+
+template<typename T>
+SparseMatrix<T> SparseMatrix<T>::operator*(SparseMatrix<T> other) const {
+    SparseMatrix<T> result(rows, columns);
+
+    for (int i = 0; i < rows; ++i) {
+
+    }
+
+
+
+
+    return result;
 }
 
 
