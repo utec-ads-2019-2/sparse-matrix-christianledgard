@@ -12,30 +12,26 @@ using namespace std;
 template <typename T>
 class SparseMatrix {
 private:
-    Node<T> *x;
-    Node<T> *y;
     unsigned int rows, columns;
-
     vector <Node<T>*> R;
     vector <Node<T>*> C;
 
 
-
 public:
     SparseMatrix(unsigned int rows, unsigned int columns);
+    SparseMatrix(const SparseMatrix &object);
     void set(unsigned int posROW_to_set, unsigned int posCOL_to_set, T data);
     T operator()(unsigned int rowPos, unsigned int colPos) const;
     SparseMatrix<T> operator+(SparseMatrix<T> other) const;
     SparseMatrix<T> operator-(SparseMatrix<T> other) const;
     SparseMatrix<T> operator*(T scalar) const;
     SparseMatrix<T> operator*(SparseMatrix<T> other) const;
-
+    SparseMatrix<T>& operator=(const SparseMatrix<T> &other);
+    void clear();
+    virtual ~SparseMatrix(){clear();}
     void print() const;
 
 //    SparseMatrix<T> transpose() const;
-//    void print() const;
-//
-//    ~SparseMatrix();
 };
 
 
@@ -230,6 +226,69 @@ SparseMatrix<T> SparseMatrix<T>::operator*(SparseMatrix<T> other) const {
 
     return result;
 }
+
+template<typename T>
+SparseMatrix<T> &SparseMatrix<T>::operator=(const SparseMatrix<T> &other) {
+    if (&other != this) {
+        clear();
+        rows = other.rows;
+        columns = other.columns;
+
+        for (unsigned int i = 0; i < rows; ++i)
+            R.push_back(nullptr);
+        for (unsigned int j = 0; j < columns; ++j)
+            C.push_back(nullptr);
+
+        for (int i = 1; i < rows + 1; ++i) {
+            for (int j = 1; j < columns + 1; ++j) {
+                set(i, j, other.operator()(i, j));
+            }
+        }
+    }
+    return *this;
+}
+
+template<typename T>
+SparseMatrix<T>::SparseMatrix(const SparseMatrix &object) {
+    rows = object.rows;
+    columns = object.columns;
+    for (unsigned int i = 0; i < rows; ++i)
+        R.push_back(nullptr);
+    for (unsigned int j = 0; j < columns; ++j)
+        C.push_back(nullptr);
+}
+
+template<typename T>
+void SparseMatrix<T>::clear() {
+//    while (!R.empty()) {
+//        auto currentNode = R.back();
+//        while (currentNode != nullptr) {
+//            auto temp = currentNode;
+//            currentNode = currentNode->next;
+//            delete temp;
+//        }
+//        R.pop_back();
+//    }
+//    while (!C.empty())
+//        C.pop_back();
+    for (int i = 0; i < rows; ++i){
+        auto temp = R[i];
+        if(temp != nullptr){
+            while(temp != nullptr){
+                auto te = temp;
+                temp = temp->next;
+                delete te;
+            }
+            R[i] = nullptr;
+        }
+    }
+    for (int j = 0; j < columns; ++j) {
+        C[j] = nullptr;
+    }
+    R.clear(); C.clear();
+    rows = columns = 0;
+}
+
 
 
 #endif //SPARSE_MATRIX_MATRIX_H

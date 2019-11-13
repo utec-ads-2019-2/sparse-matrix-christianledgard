@@ -16,6 +16,10 @@ public:
         next = down = nullptr;
     };
 
+    virtual ~Node(){
+        next = down = nullptr;
+    };
+
     friend class SparseMatrix<T>;
 };
 

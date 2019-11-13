@@ -15,6 +15,7 @@ int main() {
     m1.set(1,1,1);
     m1.set(1,2,2);
     m1.set(2,1,3);
+    m1.set(3,2,4);
     m1.set(3,4,4);
     m1.set(2,3,500);
 
@@ -25,11 +26,17 @@ int main() {
     m2.set(2,3,600);
 
     
-    cout << m1 << m2;
+    cout << m1; //<< m2;
 
-    m3 = m1 - m2;
+    m3 = m1 * 2;
 
     cout << m3;
+    cout << m1;
+
+
+
+    // cout << m1 ;//<< m2;
+
 
     //cout << m1.get(4,3) << endl;
 
