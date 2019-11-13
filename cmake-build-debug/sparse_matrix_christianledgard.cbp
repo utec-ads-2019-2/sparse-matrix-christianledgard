@@ -89,6 +89,18 @@
 		<Unit filename="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/main.cpp">
 			<Option target="sparse_matrix_christianledgard"/>
 		</Unit>
+		<Unit filename="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/mocker/mocker.cpp">
+			<Option target="sparse_matrix_christianledgard"/>
+		</Unit>
+		<Unit filename="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/mocker/mocker.h">
+			<Option target="sparse_matrix_christianledgard"/>
+		</Unit>
+		<Unit filename="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/tester/tester.cpp">
+			<Option target="sparse_matrix_christianledgard"/>
+		</Unit>
+		<Unit filename="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/tester/tester.h">
+			<Option target="sparse_matrix_christianledgard"/>
+		</Unit>
 		<Unit filename="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

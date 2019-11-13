@@ -70,17 +70,47 @@ CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/main.cpp" -o CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.s
 
+CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o: CMakeFiles/sparse_matrix_christianledgard.dir/flags.make
+CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o: ../mocker/mocker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o -c "/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/mocker/mocker.cpp"
+
+CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/mocker/mocker.cpp" > CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.i
+
+CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/mocker/mocker.cpp" -o CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.s
+
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o: CMakeFiles/sparse_matrix_christianledgard.dir/flags.make
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o: ../tester/tester.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o -c "/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/tester/tester.cpp"
+
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/tester/tester.cpp" > CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.i
+
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/tester/tester.cpp" -o CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.s
+
 # Object files for target sparse_matrix_christianledgard
 sparse_matrix_christianledgard_OBJECTS = \
-"CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o"
+"CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o" \
+"CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o" \
+"CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o"
 
 # External object files for target sparse_matrix_christianledgard
 sparse_matrix_christianledgard_EXTERNAL_OBJECTS =
 
 sparse_matrix_christianledgard: CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o
+sparse_matrix_christianledgard: CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o
+sparse_matrix_christianledgard: CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o
 sparse_matrix_christianledgard: CMakeFiles/sparse_matrix_christianledgard.dir/build.make
 sparse_matrix_christianledgard: CMakeFiles/sparse_matrix_christianledgard.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable sparse_matrix_christianledgard"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable sparse_matrix_christianledgard"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sparse_matrix_christianledgard.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

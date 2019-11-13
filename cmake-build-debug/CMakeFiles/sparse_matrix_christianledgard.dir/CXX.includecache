@@ -13,12 +13,40 @@ stdexcept
 -
 vector
 -
+map
+-
 Node.h
 /Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/Node.h
+iomanip
+-
 
 /Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/main.cpp
 iostream
 -
 SparceMatrix.h
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/SparceMatrix.h
+tester/tester.h
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/tester/tester.h
+
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/mocker/mocker.h
+random
+-
+type_traits
+-
+
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/tester/tester.h
+stdexcept
+-
+iostream
+-
+assert.h
+-
+vector
+-
+algorithm
+-
+../mocker/mocker.h
+/Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/mocker/mocker.h
+../SparceMatrix.h
 /Users/christianledgard/Documents/2019-2/Algoritmos y Estructuras de Datos/GitHub/sparse-matrix-christianledgard/SparceMatrix.h
 

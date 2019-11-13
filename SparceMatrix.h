@@ -26,12 +26,12 @@ public:
     SparseMatrix<T> operator-(SparseMatrix<T> other) const;
     SparseMatrix<T> operator*(T scalar) const;
     SparseMatrix<T> operator*(SparseMatrix<T> other) const;
+    SparseMatrix<T> transpose() const;
     SparseMatrix<T>& operator=(const SparseMatrix<T> &other);
     void clear();
     virtual ~SparseMatrix(){clear();}
     void print() const;
 
-//    SparseMatrix<T> transpose() const;
 };
 
 
@@ -53,9 +53,9 @@ void SparseMatrix<T>::set(unsigned int posROW_to_set, unsigned int posCOL_to_set
     current->posROW = posROW_to_set;
     current->posCOL = posCOL_to_set;
 
-    if(R[posROW_to_set - 1] == nullptr and C[posCOL_to_set - 1] == nullptr){ //There is no Node in the ROW and COLUMN
-        R[posROW_to_set - 1] = current;
-        C[posCOL_to_set - 1] = current;
+    if(R[posROW_to_set] == nullptr and C[posCOL_to_set] == nullptr){ //There is no Node in the ROW and COLUMN
+        R[posROW_to_set] = current;
+        C[posCOL_to_set] = current;
         current->next = nullptr;
         current->down = nullptr;
 
@@ -63,14 +63,14 @@ void SparseMatrix<T>::set(unsigned int posROW_to_set, unsigned int posCOL_to_set
 
         //R[posROW_to_set - 1] = current;
         //SETTING THE COLUMNS
-        if(C[posCOL_to_set - 1] == nullptr){
-            C[posCOL_to_set - 1] = current;
+        if(C[posCOL_to_set] == nullptr){
+            C[posCOL_to_set] = current;
             current->down = nullptr;
         } else {
-            auto *temp = C[posCOL_to_set - 1];
+            auto *temp = C[posCOL_to_set];
             if(posROW_to_set < temp->posROW){
                 auto aux = temp;
-                C[posCOL_to_set - 1] = current;
+                C[posCOL_to_set] = current;
                 current->down = aux;
             } else {
                 while(temp->down != nullptr and posROW_to_set > temp->down->posROW)
@@ -88,14 +88,14 @@ void SparseMatrix<T>::set(unsigned int posROW_to_set, unsigned int posCOL_to_set
         }
 
         //SETTING THE ROWS
-        if(R[posROW_to_set - 1] == nullptr){
-            R[posROW_to_set - 1] = current;
+        if(R[posROW_to_set] == nullptr){
+            R[posROW_to_set] = current;
             current->next = nullptr;
         } else {
-            auto *temp = R[posROW_to_set - 1];
+            auto *temp = R[posROW_to_set];
             if(posCOL_to_set < temp->posCOL){
                 auto aux = temp;
-                R[posROW_to_set - 1] = current;
+                R[posROW_to_set] = current;
                 current->next = aux;
             } else {
                 while(temp->next != nullptr and posCOL_to_set > temp->next->posCOL)
@@ -116,7 +116,7 @@ void SparseMatrix<T>::set(unsigned int posROW_to_set, unsigned int posCOL_to_set
 
 template<typename T>
 T SparseMatrix<T>::operator()(unsigned int rowPos, unsigned int colPos) const {
-    auto temp = R[rowPos-1];
+    auto temp = R[rowPos];
     if(temp == nullptr)
         return 0;
 
@@ -130,8 +130,8 @@ T SparseMatrix<T>::operator()(unsigned int rowPos, unsigned int colPos) const {
 
 template<typename T>
 void SparseMatrix<T>::print() const {
-    for (int i = 1; i < rows + 1; ++i) {
-        for (int j = 1; j < columns + 1; ++j) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
             cout << setw(3) << this->operator()(i,j) << " ";
         }
         cout << endl;
@@ -147,20 +147,20 @@ SparseMatrix<T> SparseMatrix<T>::operator+(SparseMatrix<T> other) const {
         if(R[i] != nullptr){
             auto *temp = R[i];
             while(temp != nullptr){
-                MROW[temp->posCOL-1] += temp->data;
+                MROW[temp->posCOL] += temp->data;
                 temp = temp->next;
             }
         }
         if(other.R[i] != nullptr){
             auto *temp = other.R[i];
             while(temp != nullptr){
-                MROW[temp->posCOL-1] += temp->data;
+                MROW[temp->posCOL] += temp->data;
                 temp = temp->next;
             }
         }
         if(!MROW.empty())
             for(auto const & iter: MROW){
-                result.set(i+1,iter.first+1,iter.second);
+                result.set(i,iter.first,iter.second);
             }
     }
     return result;
@@ -175,20 +175,20 @@ SparseMatrix<T> SparseMatrix<T>::operator-(SparseMatrix<T> other) const {
         if(R[i] != nullptr){
             auto *temp = R[i];
             while(temp != nullptr){
-                MROW[temp->posCOL-1] += temp->data;
+                MROW[temp->posCOL] += temp->data;
                 temp = temp->next;
             }
         }
         if(other.R[i] != nullptr){
             auto *temp = other.R[i];
             while(temp != nullptr){
-                MROW[temp->posCOL-1] -= temp->data;
+                MROW[temp->posCOL] -= temp->data;
                 temp = temp->next;
             }
         }
         if(!MROW.empty())
             for(auto const & iter: MROW){
-                result.set(i+1,iter.first+1,iter.second);
+                result.set(i,iter.first,iter.second);
             }
     }
     return result;
@@ -217,19 +217,23 @@ template<typename T>
 SparseMatrix<T> SparseMatrix<T>::operator*(SparseMatrix<T> other) const {
     SparseMatrix<T> result(rows, columns);
 
-    for (int i = 0; i < rows; ++i) {
+//    if(other.Rows != columns )
+//        throw out_of_range("Check your input");
 
+    for(int i=0; i < rows; i++) {
+        for (int j = 0; j < other.columns; j++) {
+            T cont = 0;
+            for (int k = 0; k < columns; k++)
+                cont += operator()(i, k) * other.operator()(k, j);
+            result.set(i, j, cont);
+        }
     }
-
-
-
-
     return result;
 }
 
 template<typename T>
 SparseMatrix<T> &SparseMatrix<T>::operator=(const SparseMatrix<T> &other) {
-    if (&other != this) {
+
         clear();
         rows = other.rows;
         columns = other.columns;
@@ -239,12 +243,12 @@ SparseMatrix<T> &SparseMatrix<T>::operator=(const SparseMatrix<T> &other) {
         for (unsigned int j = 0; j < columns; ++j)
             C.push_back(nullptr);
 
-        for (int i = 1; i < rows + 1; ++i) {
-            for (int j = 1; j < columns + 1; ++j) {
+        for (int i = 0; i < rows ; ++i) {
+            for (int j = 0; j < columns; ++j) {
                 set(i, j, other.operator()(i, j));
             }
         }
-    }
+
     return *this;
 }
 
@@ -256,39 +260,56 @@ SparseMatrix<T>::SparseMatrix(const SparseMatrix &object) {
         R.push_back(nullptr);
     for (unsigned int j = 0; j < columns; ++j)
         C.push_back(nullptr);
+
+    for (int i = 0; i < rows ; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            set(i, j, object.operator()(i, j));
+        }
+    }
 }
 
 template<typename T>
 void SparseMatrix<T>::clear() {
-//    while (!R.empty()) {
-//        auto currentNode = R.back();
-//        while (currentNode != nullptr) {
-//            auto temp = currentNode;
-//            currentNode = currentNode->next;
-//            delete temp;
-//        }
-//        R.pop_back();
-//    }
-//    while (!C.empty())
-//        C.pop_back();
-    for (int i = 0; i < rows; ++i){
-        auto temp = R[i];
-        if(temp != nullptr){
-            while(temp != nullptr){
-                auto te = temp;
-                temp = temp->next;
-                delete te;
-            }
-            R[i] = nullptr;
+    while (!R.empty()) {
+        auto currentNode = R.back();
+        while (currentNode != nullptr) {
+            auto temp = currentNode;
+            currentNode = currentNode->next;
+            delete temp;
         }
+        R.pop_back();
     }
-    for (int j = 0; j < columns; ++j) {
-        C[j] = nullptr;
-    }
-    R.clear(); C.clear();
-    rows = columns = 0;
+    while (!C.empty())
+        C.pop_back();
+//    for (int i = 0; i < rows; ++i){
+//        auto temp = R[i];
+//        if(temp != nullptr){
+//            while(temp != nullptr){
+//                auto te = temp;
+//                temp = temp->next;
+//                delete te;
+//            }
+//            R[i] = nullptr;
+//        }
+//    }
+//    for (int j = 0; j < columns; ++j) {
+//        C[j] = nullptr;
+//    }
+//    R.clear(); C.clear();
+//    rows = columns = 0;
 }
 
+template<typename T>
+SparseMatrix<T> SparseMatrix<T>::transpose() const {
+    SparseMatrix<T> result(rows, columns);
+    result = *this;
+
+    for (int i = 0; i < rows; ++i)
+        for (int j = 0; j < columns; ++j)
+            result.set(j,i,this->operator()(i,j));
+
+    return result;
+}
 
 
 #endif //SPARSE_MATRIX_MATRIX_H

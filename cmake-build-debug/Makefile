@@ -150,6 +150,60 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/sparse_matrix_christianledgard.dir/build.make CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+mocker/mocker.o: mocker/mocker.cpp.o
+
+.PHONY : mocker/mocker.o
+
+# target to build an object file
+mocker/mocker.cpp.o:
+	$(MAKE) -f CMakeFiles/sparse_matrix_christianledgard.dir/build.make CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o
+.PHONY : mocker/mocker.cpp.o
+
+mocker/mocker.i: mocker/mocker.cpp.i
+
+.PHONY : mocker/mocker.i
+
+# target to preprocess a source file
+mocker/mocker.cpp.i:
+	$(MAKE) -f CMakeFiles/sparse_matrix_christianledgard.dir/build.make CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.i
+.PHONY : mocker/mocker.cpp.i
+
+mocker/mocker.s: mocker/mocker.cpp.s
+
+.PHONY : mocker/mocker.s
+
+# target to generate assembly for a file
+mocker/mocker.cpp.s:
+	$(MAKE) -f CMakeFiles/sparse_matrix_christianledgard.dir/build.make CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.s
+.PHONY : mocker/mocker.cpp.s
+
+tester/tester.o: tester/tester.cpp.o
+
+.PHONY : tester/tester.o
+
+# target to build an object file
+tester/tester.cpp.o:
+	$(MAKE) -f CMakeFiles/sparse_matrix_christianledgard.dir/build.make CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o
+.PHONY : tester/tester.cpp.o
+
+tester/tester.i: tester/tester.cpp.i
+
+.PHONY : tester/tester.i
+
+# target to preprocess a source file
+tester/tester.cpp.i:
+	$(MAKE) -f CMakeFiles/sparse_matrix_christianledgard.dir/build.make CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.i
+.PHONY : tester/tester.cpp.i
+
+tester/tester.s: tester/tester.cpp.s
+
+.PHONY : tester/tester.s
+
+# target to generate assembly for a file
+tester/tester.cpp.s:
+	$(MAKE) -f CMakeFiles/sparse_matrix_christianledgard.dir/build.make CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.s
+.PHONY : tester/tester.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +216,12 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... mocker/mocker.o"
+	@echo "... mocker/mocker.i"
+	@echo "... mocker/mocker.s"
+	@echo "... tester/tester.o"
+	@echo "... tester/tester.i"
+	@echo "... tester/tester.s"
 .PHONY : help
 
 

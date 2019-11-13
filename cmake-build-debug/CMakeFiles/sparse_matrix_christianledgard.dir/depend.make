@@ -4,4 +4,15 @@
 CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o: ../Node.h
 CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o: ../SparceMatrix.h
 CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o: ../main.cpp
+CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o: ../mocker/mocker.h
+CMakeFiles/sparse_matrix_christianledgard.dir/main.cpp.o: ../tester/tester.h
+
+CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o: ../mocker/mocker.cpp
+CMakeFiles/sparse_matrix_christianledgard.dir/mocker/mocker.cpp.o: ../mocker/mocker.h
+
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o: ../Node.h
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o: ../SparceMatrix.h
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o: ../mocker/mocker.h
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o: ../tester/tester.cpp
+CMakeFiles/sparse_matrix_christianledgard.dir/tester/tester.cpp.o: ../tester/tester.h
 
