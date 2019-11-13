@@ -15,6 +15,8 @@ private:
     unsigned int rows, columns;
     vector <Node<T>*> R;
     vector <Node<T>*> C;
+    bool nodeExistInPos(unsigned int posROW, unsigned int posCOL);
+    Node<T>* findNode(unsigned int posROW, unsigned int posCOL);
 
 
 public:
@@ -31,6 +33,8 @@ public:
     void clear();
     virtual ~SparseMatrix(){clear();}
     void print() const;
+
+
 
 };
 
@@ -60,7 +64,6 @@ void SparseMatrix<T>::set(unsigned int posROW_to_set, unsigned int posCOL_to_set
         current->down = nullptr;
 
     } else {
-
         //R[posROW_to_set - 1] = current;
         //SETTING THE COLUMNS
         if(C[posCOL_to_set] == nullptr){
@@ -309,6 +312,30 @@ SparseMatrix<T> SparseMatrix<T>::transpose() const {
             result.set(j,i,this->operator()(i,j));
 
     return result;
+}
+
+template<typename T>
+bool SparseMatrix<T>::nodeExistInPos(unsigned int posROW, unsigned int posCOL) {
+    auto temp = R[posROW];
+    if(temp != nullptr){
+        while(temp != nullptr){
+            if(temp->posCOL == posCOL) return true;
+            temp = temp->next;
+        }
+    }
+    return false;
+}
+
+template<typename T>
+Node<T> *SparseMatrix<T>::findNode(unsigned int posROW, unsigned int posCOL) {
+    auto temp = R[posROW];
+    if(temp != nullptr){
+        while(temp != nullptr){
+            if(temp->posCOL == posCOL) return temp;
+            temp = temp->next;
+        }
+    }
+    return nullptr;
 }
 
 
