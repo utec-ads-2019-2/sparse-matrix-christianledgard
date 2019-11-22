@@ -52,6 +52,7 @@ SparseMatrix<T>::SparseMatrix(unsigned int rows, unsigned int columns) {
 
 template<typename T>
 void SparseMatrix<T>::set(unsigned int posROW_to_set, unsigned int posCOL_to_set, T data) {
+    // Dónde borras en caso el dato sea 0?
     auto* current = new Node<T>();
     current->data = data;
     current->posROW = posROW_to_set;
@@ -216,6 +217,7 @@ SparseMatrix<T> SparseMatrix<T>::operator*(T scalar) const {
     return result;
 }
 
+// Utilizar los métodos de la matriz va a causar que tu multiplicación sea más lenta
 template<typename T>
 SparseMatrix<T> SparseMatrix<T>::operator*(SparseMatrix<T> other) const {
     SparseMatrix<T> result(rows, columns);
